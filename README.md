@@ -187,4 +187,13 @@ public class CustomView : ContentView
 4. 1번 클래스인 것을 명시 / ex) this.BindingContext = this;
 
 ## MVVM
-- MVVM이란 Model-View-ViewModel
+- MVVM이란 Model-View-ViewModel이며 응용프로그램의 Logic과 UI와 완전히 분리할 수 있도록 도와준다.
+  - Logic과 UI를 명확하게 분리했을 때 응용프로그램을 더 쉽게 테스트할 수 있으며 유지관리에 용이.
+  - 코드 재사용성을 크게 향상시킬 수 있음.
+  - 개발자와 UI 디자이너는 쉽게 공동작업 가능.
+![image](https://user-images.githubusercontent.com/72143238/228403391-27b6b04f-87da-44a1-b24c-954e47c4befc.png)
+- __View__ : 사용자가 화면에서 볼 수 있는 구조, 레이아웃 및 모양을 정의하는 작업 담당. 여기에서는 Logic을 포함하지 않고 XAML로 정의하는 것이 좋음. *XAML로 표현하기 어려운 시각적 동작 구현시 Code Behind에 작성 가능*
+- __View Model__ : View가 데이터 바인딩할 수 있는 속성 및 명령을 구현하고 변경 알림 이벤트를 통해 상태 변경을 View에 알린다. *View Model은 필요한 모델 클래스와 View의 상호 작용을 컨트롤해야함.*
+- __Model__ : 응용 프로그램의 데이터를 캡슐화하는 비시각적 클래스. Model은 일반적으로 비지니스 및 Logic과 함께 데이터모델을 포함하는 앱의 도메인 모
+  - View는 ViewModel에 대해서 알고 있고 ViewModel은 Model에 대해서 알고 있지만 Model은 ViewModel을 인식하지 못하고 ViewModel은 View를 인식하지 못한다.
+  - 그렇기 때문에 ViewModel은 Model에서 View를 분리하고 Model이 View와 독립적으로 발전할 수 있게 한다.
