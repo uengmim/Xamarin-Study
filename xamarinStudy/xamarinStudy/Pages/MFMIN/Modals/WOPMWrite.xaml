@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:dxp="http://schemas.devexpress.com/xamarin/2014/forms/popup"
+             x:Class="NMAP.Pages.MFMIN.Modals.WOPMWrite"
+             xmlns:local="clr-namespace:NMAP.ViewModels.MFMIN" xmlns:util="clr-namespace:NMAP.Utils"
+             x:Name="WOPMWritePage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <!--header-->
+            <Grid Grid.Row="0" BackgroundColor="Transparent" RowSpacing="0">
+                <StackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton Grid.Column="0" Icon="arrow_back.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnBack_Clicked" />
+                        <Label Grid.Column="1" Text="남해화학 | W/O 순환점검->점검입력" Style="{StaticResource HeaderTitleStyle1}" />
+                        <dxe:SimpleButton x:Name="btnSave" Grid.Column="2" Text="저장" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Command="{Binding OnPMWriteSave}" CommandParameter="{Binding .}" HorizontalOptions="End" />
+                    </Grid>
+                </StackLayout>
+            </Grid>
+
+            <!-- content -->
+            <Grid Grid.Row="1" BackgroundColor="Transparent" Margin="0,18,0,0">
+                <pcv:PancakeView CornerRadius="0,0,0,0" Padding="5,10" BackgroundColor="Transparent">
+                    <StackLayout Margin="0,0,0,0">
+                        <Grid RowDefinitions="*" ColumnDefinitions="*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <Frame Margin="0" CornerRadius="20" HasShadow="True" BackgroundColor="White">
+                                <CollectionView x:Name="cvWopmView"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" ItemsSource="{Binding WopmViewDataModel}" Margin="10">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.Header>
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding Source={x:Reference Name=WOPMWritePage}, Path=BindingContext.ModalTitleText}" FontSize="Title" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"></Label>
+                                        </StackLayout>
+                                    </CollectionView.Header>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout>
+                                                <util:CustomFrame  CornerRadius="5" HorizontalOptions="Fill" VerticalOptions="Start" IsClippedToBounds="True" HasShadow="True" BorderColor="LightGray" BackgroundColor="White" Padding="5" Margin="5,5,5,10"  >
+                                                    <StackLayout Orientation="Vertical" Padding="0" Margin="0">
+                                                        <StackLayout Orientation="Horizontal" Padding="0" Margin="0">
+                                                            <Grid RowDefinitions="*" ColumnDefinitions="*,*,*,*,*" Margin="0">
+
+                                                                <dxe:TextEdit Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelText="" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Large'}" Text="{Binding PTTXT}" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent" FocusedLabelColor="#2b7b0e" TextColor="Blue" AffixFontAttributes="Bold"/>
+                                                                <dxe:TextEdit Grid.Row="0" Grid.Column="2" LabelText="" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Large'}" Text="{Binding MSEHI}" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent" FocusedLabelColor="#2b7b0e" TextColor="Blue" AffixFontAttributes="Bold"/>
+                                                                <dxe:DateEdit Grid.Row="0" Grid.Column="3" LabelText="" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Large'}" Date="{Binding IMRC_IDATE}" DisplayFormat="yyyy-MM-dd" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent" FocusedLabelColor="#2b7b0e" TextColor="Blue"/>
+                                                                <dxe:SimpleButton Grid.Row="0" Grid.Column="4" Text="추이분석" Icon="graph.png" FontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" IconColor="#2b7b0e" TextColor="#2b7b0e" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="End" Command="{Binding Source={x:Reference Name=WOPMWritePage}, Path=BindingContext.OnPMTrendAnalysis}" CommandParameter="{Binding .}" BorderColor="Transparent" BackgroundColor="Transparent"/>
+                                                            </Grid>
+                                                        </StackLayout>
+                                                        <Line HorizontalOptions="FillAndExpand"  BackgroundColor="Transparent"
+                                                                          VerticalOptions="End" 
+                                                                          X1="0" X2="{Binding Source= {RelativeSource AncestorType={x:Type Grid}}, Path=Width}"
+                                                                          Stroke="#b5b5b5" 
+                                                                          StrokeThickness="2" StrokeDashArray="1,1" 
+                                                                          StrokeDashOffset="6"  Margin="0"/>
+                                                        <Grid RowDefinitions="*" ColumnDefinitions="*,*,*,*,*" Margin="0">
+                                                            <dxe:NumericEdit Grid.Row="0" Grid.Column="0" LabelText="목표값" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" Value="{Binding DESIR}" IsReadOnly="True" BorderColor="DarkGray" FocusedBorderColor="DarkGray" FocusedLabelColor="Black"/>
+                                                            <dxe:NumericEdit Grid.Row="0" Grid.Column="1" LabelText="하한값" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" Value="{Binding MRMIN}" IsReadOnly="True" BorderColor="DarkGray" FocusedBorderColor="DarkGray" FocusedLabelColor="Black"/>
+                                                            <dxe:NumericEdit Grid.Row="0" Grid.Column="2" LabelText="상한값" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" Value="{Binding MRMAX}" IsReadOnly="True" BorderColor="DarkGray" FocusedBorderColor="DarkGray" FocusedLabelColor="Black"/>
+                                                            <dxe:NumericEdit Grid.Row="0" Grid.Column="3" LabelText="입력값" StartIcon="small_request.png" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" Value="{Binding RECDC}" BorderColor="Black" FocusedBorderColor="Blue" FocusedLabelColor="Blue"/>
+                                                            <dxe:ComboBoxEdit Grid.Row="0" Grid.Column="4" LabelText="평가" StartIcon="small_request.png" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" ItemsSource="{Binding StatComboBoxData}" SelectedValue="{Binding VLCOD}" DisplayMember="Name" ValueMember="Code" BorderColor="Black" FocusedBorderColor="Blue" FocusedLabelColor="Blue" />
+
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </util:CustomFrame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Frame>
+                        </Grid>
+                        <!--<dxp:DXPopup x:Name="popDetailView" CornerRadius="20" BackgroundColor="#daf0a9" >
+                            <StackLayout BindableLayout.ItemsSource="{Binding PopupCardviewDataModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Margin="20" CornerRadius="20" HasShadow="True" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                            <Grid RowDefinitions="*" >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="오더정보" Grid.Row="0" Grid.Column="0" FontSize="Subtitle" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="20,20,0,0"></Label>
+                                                <dxe:TextEdit Grid.Row="1" Grid.Column="0" LabelText="오더번호" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding AUFNR}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="1" Grid.Column="1" LabelText="오더구분" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding AUART}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" LabelText="내역" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding KTEXT}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+
+                                                <Label Text="요청정보" Grid.Row="3" Grid.Column="0" FontSize="Subtitle" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="20,20,0,0"></Label>
+                                                <dxe:TextEdit Grid.Row="4" Grid.Column="0" LabelText="요청부서코드" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding INGRP}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" LabelText="요청부서명" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding INGRP_DESC}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="5" Grid.Column="0" LabelText="작업부서코드" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding VAPLZ}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" LabelText="작업부서명" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding VAPLZ_DESC}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:DateEdit Grid.Row="6" Grid.Column="0" LabelText="작업요청일" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Date="{Binding IDAT1}" DisplayFormat="yyyy-MM-dd" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:DateEdit Grid.Row="6" Grid.Column="1" LabelText="요청시작일" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Date="{Binding GSTRP}" DisplayFormat="yyyy-MM-dd" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:DateEdit Grid.Row="6" Grid.Column="2" LabelText="요청종료일" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Date="{Binding GLTRP}" DisplayFormat="yyyy-MM-dd" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+
+                                                <Label Text="설비정보" Grid.Row="7" Grid.Column="0" FontSize="Subtitle" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="20,20,0,0"></Label>
+                                                <dxe:TextEdit Grid.Row="8" Grid.Column="0" LabelText="설비번호" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding EQUNR}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" LabelText="설비명" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding EQUNR_DESC}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="9" Grid.Column="0" LabelText="기능위치" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding TPLNR}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+                                                <dxe:TextEdit Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" LabelText="기능위치명" LabelFontSize="Body" ClearIconVisibility="Never" TextFontSize="Medium" Text="{Binding TPLNR_DESC}" IsReadOnly="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" FocusedBorderColor="#2b7b0e" FocusedLabelColor="#2b7b0e"/>
+
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </dxp:DXPopup>
+
+                        <dxp:DXPopup x:Name="popWOMatRequestView" CornerRadius="20" BackgroundColor="#005891">
+                            <StackLayout BindableLayout.ItemsSource="{Binding PopupCardviewDataModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Margin="20" CornerRadius="20" HasShadow="True" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                            <Grid RowDefinitions="*" ColumnDefinitions="*" MinimumWidthRequest="500" MinimumHeightRequest="400">
+                                                <StackLayout Orientation="Horizontal" Grid.Row="0" >
+                                                    <Label Text="자재요청" FontSize="Title" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="20,20,0,0"></Label>
+                                                    <dxe:SimpleButton Text="닫기" VerticalOptions="Center" HorizontalOptions="End" Clicked="OnPopupClose_Clicked" CornerRadius="20"/>
+                                                    <dxe:SimpleButton Text="요청" VerticalOptions="Center" HorizontalOptions="End" Command="{Binding Source={x:Reference Name=WOMAPage}, Path=BindingContext.OnMatRequestSave}" CommandParameter="{Binding .}" CornerRadius="20"/>
+                                                </StackLayout>
+
+                                                <dxe:TextEdit x:Name="txtWORequest" Grid.Row="1" Text="{Binding MATREQUEST}" LabelText="자재요청사항입력" HelpText="40자까지 입력가능합니다." ErrorText="40자제한입니다." MaxCharacterCount="40" ErrorColor="Red" HasError="{Binding bRequestTextError}" TextChangedCommand="{Binding OnMatRequestTextChange}" TextChangedCommandParameter="{Binding .}"/>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </dxp:DXPopup>-->
+                    </StackLayout>
+                </pcv:PancakeView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
