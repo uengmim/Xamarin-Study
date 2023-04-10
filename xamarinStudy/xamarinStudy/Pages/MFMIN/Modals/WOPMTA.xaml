@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:dxc="http://schemas.devexpress.com/xamarin/2014/forms/charts"
+             x:Class="NMAP.Pages.MFMIN.Modals.WOPMTA"
+             xmlns:local="clr-namespace:NMAP.ViewModels.MFMIN"
+             x:Name="WOPMTAPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <!--header-->
+            <Grid Grid.Row="0" BackgroundColor="Transparent" RowSpacing="0">
+                <StackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton Grid.Column="0" Icon="arrow_back.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnBack_Clicked" />
+                        <Label Grid.Column="1" Text="남해화학 | W/O 순환점검->점검입력->추이분석" Style="{StaticResource HeaderTitleStyle1}" />
+                        <dxe:SimpleButton x:Name="btnSearch" Grid.Column="2" Icon="search.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Command="{Binding OnSearchTAData}" HorizontalOptions="End" />
+                    </Grid>
+                </StackLayout>
+            </Grid>
+
+            <!-- content -->
+            <Frame Grid.Row="1" Margin="10" CornerRadius="20" HasShadow="True" BackgroundColor="White">
+                <Grid RowDefinitions="auto,auto" BackgroundColor="Transparent" Margin="0,0,0,0">
+                    <StackLayout Grid.Row="0"  Margin="0,0,0,0">
+                        <StackLayout Orientation="Vertical" Margin="0,0,30,20">
+                            <dxe:ComboBoxEdit x:Name="cbAnalType"
+                                              LabelText="구분" 
+                                              ItemsSource="{Binding AnalType}"
+                                              SelectedValue="{Binding SelectedAnalType}" 
+                                              IsLabelFloating="False"
+                                              LabelFontSize="Body" 
+                                              HorizontalOptions="Start" 
+                                              IsReadOnly="False"
+                                              SelectionChangedCommand="{Binding OnChangeAnalType}"
+                                              BackgroundColor="White"/>
+
+                            <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
+                                <dxe:DateEdit x:Name="dtSTDATE"
+                                          LabelText="조회시작일" 
+                                          Date="{Binding TAStartDate}" 
+                                          IsLabelFloating="False"
+                                          LabelFontSize="Body" 
+                                          HorizontalOptions="Start" 
+                                          IsReadOnly="False"
+                                          BackgroundColor="White"
+                                          DisplayFormat="yyyy-MM-dd"/>
+                                <Label Text="~" VerticalOptions="Center" HorizontalOptions="Fill" Margin="0,0,0,0" FontSize="Body"/>
+                                <dxe:DateEdit x:Name="dtEDDATE" 
+                                          LabelText="조회종료일" 
+                                          Date="{Binding TAEndDate}" 
+                                          IsLabelFloating="False"
+                                          LabelFontSize="Body" 
+                                          IsReadOnly="False" 
+                                          BackgroundColor="White"
+                                          DisplayFormat="yyyy-MM-dd"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Orientation="Vertical">
+                            <Label Text="{Binding Source={x:Reference Name=WOPMTAPage}, Path=BindingContext.TAModalTitleText}" FontSize="Title" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"></Label>
+                            
+                            <dxc:ChartView x:Name="cvWOPMTAChart" Margin="0,0,0,50" HeightRequest="700">
+                                <dxc:ChartView.Series>
+                                    <dxc:LineSeries>
+                                        <dxc:LineSeries.Style>
+                                            <dxc:LineSeriesStyle>
+                                            </dxc:LineSeriesStyle>
+                                        </dxc:LineSeries.Style>
+                                        <dxc:LineSeries.Data>
+                                            <dxc:SeriesDataAdapter DataSource="{Binding WopmtaViewDataModel}"
+                                           ArgumentDataMember="Input_date">
+                                                <dxc:ValueDataMember Type="Value" Member="Input_val"/>
+                                            </dxc:SeriesDataAdapter>
+                                        </dxc:LineSeries.Data>
+                                    </dxc:LineSeries>
+                                    <dxc:LineSeries>
+                                        <dxc:LineSeries.Data>
+                                            <dxc:SeriesDataAdapter DataSource="{Binding WopmtaViewDataModel}"
+                                           ArgumentDataMember="Input_date">
+                                                <dxc:ValueDataMember Type="Value" Member="Minval"/>
+                                            </dxc:SeriesDataAdapter>
+                                        </dxc:LineSeries.Data>
+                                    </dxc:LineSeries>
+                                    <dxc:LineSeries>
+                                        <dxc:LineSeries.Data>
+                                            <dxc:SeriesDataAdapter DataSource="{Binding WopmtaViewDataModel}"
+                                           ArgumentDataMember="Input_date">
+                                                <dxc:ValueDataMember Type="Value" Member="Maxval"/>
+                                            </dxc:SeriesDataAdapter>
+                                        </dxc:LineSeries.Data>
+                                    </dxc:LineSeries>
+                                </dxc:ChartView.Series>
+                            </dxc:ChartView>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
