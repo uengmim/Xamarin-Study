@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             x:Class="NMAP.Pages.Common.AENV"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,*" RowSpacing="0" Padding="0">
+            <!--header-->
+            <Frame Grid.Row="0" BackgroundColor="Transparent" Margin="5" Padding="0">
+                <StackLayout Margin="0" Padding="0">
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton x:Name="btnBack" Grid.Column="0" Icon="back.png" Text="BACK" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnBack_Clicked" />
+                        <Label Grid.Column="1" Text="시스템 설정" Style="{StaticResource HeaderTitleStyle1}" />
+                        <dxe:SimpleButton x:Name="btnApply" Grid.Column="3" Text="적용" FontSize="Medium" HorizontalOptions="End" TextColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="DarkGreen" Clicked="Apply_Click" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <!-- content -->
+            <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="GhostWhite" HasShadow="False" Margin="5,0, 5, 10" Padding="5">
+                <StackLayout Orientation="Vertical" Margin="0" Padding="0">
+                    <dxe:ComboBoxEdit ItemsSource="{Binding}"
+                                        LabelText="서버"
+                                        HorizontalOptions="Fill"
+                                        DisplayMember="Name"
+                                        ValueMember="Name" 
+                                        Margin="5, 0, 0, 5"
+                                        x:Name="serverCombo"
+                                        BorderColor="Black" FocusedBorderColor="Blue" FocusedLabelColor="Blue" />
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
