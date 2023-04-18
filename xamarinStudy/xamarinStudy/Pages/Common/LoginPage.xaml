@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             x:Class="NMAP.Pages.Common.LoginPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Color x:Key="pointColor">#b0b9c8</Color>
+        <Color x:Key="switchOnColor">#4ea352</Color>
+
+        <Style TargetType="Label" x:Key="lblHeaderTitle">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="{OnIdiom Phone= {OnPlatform iOS='45', Android='45'},Tablet= {OnPlatform iOS='55', Android='55'}}"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,45,0,5', Android='0,0,0,-40'},Tablet= {OnPlatform iOS='0,55,0,5', Android='0,0,0,-50'}}"/>
+       
+        </Style>
+
+        <Style TargetType="Label" x:Key="lblSignSub">
+            <Setter Property="FontFamily" Value="NotoSansKRLight"/>
+            <Setter Property="FontSize" Value="{OnIdiom Phone= {OnPlatform iOS='20', Android='22'},Tablet= {OnPlatform iOS='22', Android='22'}}"/>
+            <Setter Property="TextColor" Value="#c1c1c1"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone={OnPlatform iOS='0,5,0,18', Android='0,-15,0,0'},Tablet= {OnPlatform iOS='0,5,0,20', Android='0,-15,0,0'}}"/>
+
+        </Style>
+
+        <Style TargetType="Label" x:Key="lblRemember">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="NotoSansKR"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="{StaticResource pointColor}"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,4', Android='0,-12'},Tablet= {OnPlatform iOS='0,4', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        
+        <Grid RowDefinitions="0.6*,Auto,Auto,Auto,Auto,Auto,0.4*,Auto" Padding="50,0">
+            <!--header-->
+            <Grid Grid.Row="0" BackgroundColor="Transparent" RowSpacing="0" Margin="-30, 0, -50, 0">
+                <Grid ColumnDefinitions="Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}" >
+                    <dxe:SimpleButton x:Name="btnSysReq" Grid.Column="0" Text="사용요청" IconColor="#ffffff" BackgroundColor="Transparent" Clicked="btnSysReq_Clicked" HorizontalOptions="Start" VerticalOptions="Center" />
+                    <dxe:SimpleButton x:Name="btnServer" Grid.Column="1" Icon="control.png" IconColor="#ffffff" BackgroundColor="Transparent" Clicked="btnServer_Clicked" HorizontalOptions="End" VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+            
+            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalOptions="Center" Margin="0,0,0,45" RowSpacing="3">
+                <Label Grid.Row="0" Text="Welcome!" Style="{StaticResource lblHeaderTitle}"/>
+                <Label Grid.Row="1" Text="Sign in to continue" Style="{StaticResource lblSignSub}"/>
+            </Grid>
+            <dxe:TextEdit x:Name="teLoginId" Grid.Row="2" BoxMode="Filled" BackgroundColor="Transparent" BorderColor="#ffffff" BorderThickness="1" PlaceholderText="LOGIN ID" ClearIconVisibility="Never"  FocusedBorderColor="{StaticResource pointColor}" BoxPadding="3,0,0,5" TextColor="#ffffff" PlaceholderColor="#66ffffff" />
+            <dxe:PasswordEdit x:Name="tePasswd" Grid.Row="3" BoxMode="Filled" IconColor="#ffffff" BackgroundColor="Transparent" BorderColor="#fff" BorderThickness="1" PlaceholderText="PASSWORD"  BoxPadding="3,0,0,5"  ClearIconVisibility="Never"  FocusedBorderColor="{StaticResource pointColor}" TextColor="#ffffff" PlaceholderColor="#66ffffff" Margin="0,40,0,0"/>
+
+
+            <StackLayout Grid.Row="4" Orientation="Horizontal" Spacing="4" Margin="0,14,0,40" >
+                <dxe:SimpleButton x:Name="btnPasswdChg" Grid.Column="0" Text="암호변경" IconColor="#ffffff"  Padding="0"   BackgroundColor="Transparent" Clicked="btnPasswdChg_Clicked" HorizontalOptions="Start" VerticalOptions="Center" />
+
+                <Switch x:Name="switRemember" ThumbColor="#ffffff" OnColor="{StaticResource switchOnColor}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Toggled="switRemember_Toggled" />
+                <Label Text="Remember" Style="{StaticResource lblRemember}" TextColor="#ffffff" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+            <Button Text="로그인" Grid.Row="5" BackgroundColor="#12a84f" 
+                    HorizontalOptions="Center" CharacterSpacing="-0.2"
+                    CornerRadius="{OnPlatform iOS='20', Android='30'}" HeightRequest="40" WidthRequest="130"
+                    FontSize="21"  TextColor="#ffffff" FontFamily="NotoSansKRBlack" TextTransform="None" 
+                    Padding="{OnIdiom Phone= {OnPlatform iOS='0,5,0,9', Android='0,-12'},Tablet= {OnPlatform iOS='0,5,0,9', Android='0,-12'}}"  
+                    Clicked="Login_Clicked"/>
+
+            <ImageButton Grid.Row="7" Scale="1.0" Source="nc_Title_small.png" HeightRequest="30" Aspect="AspectFit" Opacity="1" Margin="0,0,0,20" BackgroundColor="Transparent" HorizontalOptions="Center" IsEnabled="False" />
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
