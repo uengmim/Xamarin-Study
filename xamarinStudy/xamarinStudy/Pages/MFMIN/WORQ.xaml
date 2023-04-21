@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             x:Class="NMAP.Pages.MFMIN.WORQ"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <!--header-->
+            <Grid Grid.Row="0" BackgroundColor="Transparent" RowSpacing="0">
+                <StackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton x:Name="btnMenu" Grid.Column="0" Icon="menu_black.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnMenu_Clicked" />
+                        <Label Grid.Column="1" Text="남해화학 | W/O 요청" Style="{StaticResource HeaderTitleStyle1}" />
+                    </Grid>
+                </StackLayout>
+            </Grid>
+
+            <!-- content -->
+            <Grid Grid.Row="1" BackgroundColor="Transparent" Margin="0,18,0,0">
+                <pcv:PancakeView CornerRadius="0,0,0,0" Padding="5,10" BackgroundColor="Transparent">
+                    <StackLayout Margin="0,50,0,0">
+                        <Label Text="{Binding Description}" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Content Page" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </pcv:PancakeView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
