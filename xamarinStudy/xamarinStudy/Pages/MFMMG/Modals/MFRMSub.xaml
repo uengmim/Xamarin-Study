@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:dxp="http://schemas.devexpress.com/xamarin/2014/forms/popup" 
+             xmlns:util="clr-namespace:NMAP.Utils"
+             x:Class="NMAP.Pages.MFMMG.MFRMSub"
+             x:Name="MFRMPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <!--header-->
+            <Frame Grid.Row="0" BackgroundColor="Transparent" Margin="5" Padding="0">
+                <StackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton Grid.Column="0" Icon="arrow_back.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnBack_Clicked" />
+                        <Label Grid.Column="1" Text="남해화학 | 구매요청확인" Style="{StaticResource HeaderTitleStyle1}" />
+                        <dxe:SimpleButton x:Name="btnSave" Grid.Column="3" Text="저장" FontSize="Medium" TextColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Command="{Binding OnSave}" HorizontalOptions="End"   />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- content -->
+            <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="GhostWhite" HasShadow="False" Margin="5,0, 5, 10" Padding="5">
+                <StackLayout Orientation="Vertical" Margin="0" Padding="0">
+                    <CollectionView  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0" ItemsSource="{Binding ZMMS0080Model}" SelectionMode="Single" SelectedItem="{Binding SelectedContact}" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Normal" />
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <util:CustomFrame  CornerRadius="5" HorizontalOptions="Fill" VerticalOptions="Start" IsClippedToBounds="True" HasShadow="True" BorderColor="LightGray" BackgroundColor="White" Padding="5" Margin="5,5,5,10"  >
+                                        <StackLayout Orientation="Vertical" Padding="0" Margin="0">
+                                            <StackLayout Orientation="Horizontal" Padding="0" Margin="0">
+                                                <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="0" Padding="0" RowSpacing="5" ColumnSpacing="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+                                                    <dxe:TextEdit Grid.Row="0" Grid.Column="0" LabelText="" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Small'}" Text="{Binding MAKTX}" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent"  TextColor="Blue" AffixFontAttributes="Bold"/>
+                                                </Grid>
+                                            </StackLayout>
+                                            <Line HorizontalOptions="FillAndExpand"  BackgroundColor="Transparent"
+                                                                          VerticalOptions="End" 
+                                                                          X1="0" X2="{Binding Source= {RelativeSource AncestorType={x:Type Grid}}, Path=Width}"
+                                                                          Stroke="#b5b5b5" 
+                                                                          StrokeThickness="2" StrokeDashArray="1,1" 
+                                                                          StrokeDashOffset="6"  Margin="0"/>
+                                            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*" Margin="0" Padding="8,0,10,15" RowSpacing="5" ColumnSpacing="10" BackgroundColor="Transparent">
+                                                <dxe:TextEdit BoxPadding="6,15,5,15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelText="" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Small'}" Text="{Binding MATNR}" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent"  TextColor="Blue" AffixFontAttributes="Bold"/>
+                                                <dxe:TextEdit Grid.Row="0" Grid.Column="2" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Small'}" Text="{Binding LGORT}" IsReadOnly="True" BorderColor="Transparent" FocusedBorderColor="Transparent"  TextColor="Blue" AffixFontAttributes="Bold"/>
+                                                <dxe:DateEdit Grid.Row="1" Grid.Column="0" LabelText="납품요청일자" Date="{Binding PR_DATE}" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Micro', Android='Micro'},Tablet='13'}" BorderColor="DarkGray" FocusedBorderColor="DarkGray" FocusedLabelColor="Black" DisplayFormat="yyyy-MM-dd" MinDate="{Binding Source={x:Static sys:DateTime.Now}}" DateChangedCommand="{Binding Source={x:Reference Name=MFRMPage}, Path=BindingContext.OnSelect}" DateChangedCommandParameter="{Binding .}" />
+                                                <dxe:NumericEdit Grid.Row="1" Grid.Column="1" LabelText="요청량" ClearIconVisibility="Never" TextFontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Small'}" Value="{Binding MNG03 }" StartIcon="small_request.png" TextHorizontalAlignment="End" BorderColor="Black" FocusedBorderColor="Blue" FocusedLabelColor="Blue"  DisplayFormat="n3"/>
+                                                <dxe:SimpleButton Grid.Row="1" Text="상세내용" Icon="small_request.png" FontSize="{OnIdiom Phone= {OnPlatform iOS='Small', Android='Small'},Tablet='Medium'}" IconColor="#2b7b0e" TextColor="#2b7b0e" Command="{Binding Source={x:Reference Name=MFRMPage}, Path=BindingContext.OnDetail}" CommandParameter="{Binding .}" Grid.Column="2" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="End"  BorderColor="Transparent" BackgroundColor="Transparent"/>
+
+                                            </Grid> 
+                                        </StackLayout>
+                                    </util:CustomFrame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
