@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:dxp="http://schemas.devexpress.com/xamarin/2014/forms/popup" 
+             xmlns:util="clr-namespace:NMAP.Utils"
+             x:Class="NMAP.Pages.MFMMG.MFRM"
+             x:Name="MFRMPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4ea352" Offset="0.1" />
+            <GradientStop Color="#1a7c00" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="HeaderTitleStyle1">
+            <Setter Property="FontFamily" Value="NotoSansKRBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{OnIdiom Phone= {OnPlatform iOS='0,-8', Android='0,-12'},Tablet= {OnPlatform iOS='0,-8', Android='0,-12'}}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, 3*, *" RowSpacing="0">
+            <!--header-->
+            <Frame Grid.Row="0" BackgroundColor="Transparent" Margin="5" Padding="0">
+                <StackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="{OnIdiom Phone= {OnPlatform iOS='40', Android='45'},Tablet='60'}">
+                        <dxe:SimpleButton x:Name="btnMenu" Grid.Column="0" Icon="menu_black.png" IconColor="#ffffff" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Clicked="btnMenu_Clicked" />
+                        <Label Grid.Column="1" Text="남해화학 | 구매요청확인" Style="{StaticResource HeaderTitleStyle1}" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- content -->
+            <Frame Grid.Row="1"  CornerRadius="10" BackgroundColor="GhostWhite" HasShadow="False" Margin="5,0, 5, 10" Padding="5" HeightRequest="200" >
+                <StackLayout Orientation="Vertical" Margin="0" Padding="0">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Padding="5" Margin="5,5,5,15"  >
+                        <dxe:TextEdit LabelText="자재유형" IsReadOnly="True" Text="{Binding Mtart}" ></dxe:TextEdit>
+                        <dxe:ComboBoxEdit  LabelText="자재그룹"  ItemsSource="{Binding T023T}" SelectedValue="{Binding SelecteMatkl, Mode=TwoWay}"  DisplayMember="MATKL" ValueMember="MATKL" Margin="0,0,0,10" SelectionChangedCommand ="{Binding OnChangeMatnr}">
+                            <dxe:ComboBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="50,*">
+                                        <Label Padding="10" Grid.Row="0" Grid.Column="0" Text="{Binding MATKL}" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+                                        <Label Padding="10" Grid.Row="0" Grid.Column="1" Text="{Binding WGBEZ}" HorizontalTextAlignment="End"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:ComboBoxEdit.ItemTemplate>
+                        </dxe:ComboBoxEdit>
+                        <dxe:ComboBoxEdit  LabelText="자재코드"  ItemsSource="{Binding MARA}" SelectedValue="{Binding SelecteMatnr, Mode=TwoWay}"  DisplayMember="MATNR" ValueMember="MATNR" Margin="0,0,0,10" IsFilterEnabled="True" FilterMode="StartsWith" FilterComparisonType="CurrentCultureIgnoreCase" EndIcon="close.png" EndIconCommand="{Binding ClearMatnr}">
+                            <dxe:ComboBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowSpacing="1" RowDefinitions="*,*,5">
+                                        <Label Padding="10" Grid.Row="0" Grid.Column="0" Text="{Binding MATNR}" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+                                        <Label Padding="10" Grid.Row="1" Grid.Column="0" Text="{Binding MAKTX}" FontSize="Small" HorizontalTextAlignment="Start"/>
+                                        <Line Grid.Row="2" Grid.Column="0" HorizontalOptions="FillAndExpand"  BackgroundColor="Transparent"
+                                                                      VerticalOptions="End" 
+                                                                      X1="0" X2="{Binding Source= {RelativeSource AncestorType={x:Type Grid}}, Path=Width}"
+                                                                      Stroke="#b5b5b5" 
+                                                                      StrokeThickness="2" StrokeDashArray="1,1" 
+                                                                      StrokeDashOffset="6"  Margin="0" HeightRequest="5"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:ComboBoxEdit.ItemTemplate>
+                        </dxe:ComboBoxEdit>
+                        <dxe:ComboBoxEdit  LabelText="운영부서"  ItemsSource="{Binding DEPT}" SelectedValue="{Binding SelecteDept, Mode=TwoWay}"  DisplayMember="DEPT_NM" ValueMember="DEPT_CD" Margin="0,0,0,10"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Padding="5" Margin="5,5,5,15"  >
+                        <dxe:DateEdit x:Name="dtSTDATE"
+                                          LabelText="시작일" 
+                                          Date="{Binding StartDate}" 
+                                          IsLabelFloating="False"
+                                          LabelFontSize="Body" 
+                                          HorizontalOptions="Start" 
+                                          IsReadOnly="False"
+                                          BackgroundColor="White"
+                                          DisplayFormat="yyyy-MM-dd"/>
+                        <Label Text="~" VerticalOptions="Center" HorizontalOptions="Fill" Margin="0,0,0,0" FontSize="Body"/>
+                        <dxe:DateEdit x:Name="dtEDDATE" 
+                                          LabelText="종료일" 
+                                          Date="{Binding EndDate}" 
+                                          IsLabelFloating="False"
+                                          LabelFontSize="Body" 
+                                          IsReadOnly="False" 
+                                          BackgroundColor="White"
+                                          DisplayFormat="yyyy-MM-dd"/>
+                     <dxe:SimpleButton x:Name="btnSearch" Icon="search_s.png" IconColor="#000000" Padding="{OnPlatform iOS='15,0',Default='0'}" BackgroundColor="Transparent" Command="{Binding OnSearchData}" HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="3" BackgroundColor="Transparent" Margin="5" Padding="0">
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
