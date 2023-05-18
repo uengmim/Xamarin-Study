@@ -1,0 +1,155 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+	<LangVersion>9.0</LangVersion>
+	<UserSecretsId>f676902e-3e23-4cab-b4b7-bfc6840c287d</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\GlassAntiqua-Regular.ttf" />
+    <None Remove="Fonts\Lobster-Regular.ttf" />
+    <None Remove="Fonts\NanumGothic-Bold.ttf" />
+    <None Remove="Fonts\NanumGothic-ExtraBold.ttf" />
+    <None Remove="Fonts\NanumGothic-Regular.ttf" />
+    <None Remove="Fonts\NotoSansKR-Black.otf" />
+    <None Remove="Fonts\NotoSansKR-Bold.otf" />
+    <None Remove="Fonts\NotoSansKR-Light.otf" />
+    <None Remove="Fonts\NotoSansKR-Medium.otf" />
+    <None Remove="Fonts\NotoSansKR-Regular.otf" />
+    <None Remove="Fonts\NotoSansKR-Thin.otf" />
+    <None Remove="Fonts\PatrickHand-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\GlassAntiqua-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Lobster-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\NanumGothic-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\NanumGothic-ExtraBold.ttf" />
+    <EmbeddedResource Include="Fonts\NanumGothic-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Black.otf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Bold.otf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Light.otf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Medium.otf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Regular.otf" />
+    <EmbeddedResource Include="Fonts\NotoSansKR-Thin.otf" />
+    <EmbeddedResource Include="Fonts\PatrickHand-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="[7.2.0.564]" />
+    <PackageReference Include="DeviceId" Version="6.3.0" />
+    <PackageReference Include="IsExternalInit" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Splat" Version="14.6.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Xamarin.ImageCropper" Version="1.0.7" />
+    <PackageReference Include="XNDIMEXCore" Version="1.2.9" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="3.1.0-beta2" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.1.0-beta2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DevExpress.XamarinForms.Charts">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Charts.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.CollectionView">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.CollectionView.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.Core">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.Editors">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Editors.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.Grid">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Grid.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.Navigation">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XamarinForms.Scheduler">
+      <HintPath>..\..\LIB\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Scheduler.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\Common\CHGPWD.xaml.cs">
+      <DependentUpon>CHGPWD.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMIN\Modals\WOPMTA.xaml.cs">
+      <DependentUpon>WOPMTA.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMIN\Modals\WOPMWrite.xaml.cs">
+      <DependentUpon>WOPMWrite.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMIN\WOPM.xaml.cs">
+      <DependentUpon>WOPM.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMIN\worq.xaml.cs">
+      <DependentUpon>WORQ.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMMG\Modals\FMMISelect.xaml.cs">
+      <DependentUpon>FMMISelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMOU\WOMA.xaml.cs">
+      <DependentUpon>WOMA.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMOU\WOMU.xaml.cs">
+      <DependentUpon>WOMU.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MFMOU\WOMR.xaml.cs">
+      <DependentUpon>WOMR.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\Common\LoadingMainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Common\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Common\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Common\SYSREQ.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Common\AENV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\MFMIN\WORQ.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\MFMMG\FMMI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\MFMMG\Modals\FMMISelect.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
