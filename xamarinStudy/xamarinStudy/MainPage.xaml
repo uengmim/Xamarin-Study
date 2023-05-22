@@ -1,24 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<dxn:DrawerPage
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="xamarinStudy.MainPage">
+             xmlns:dxn="http://schemas.devexpress.com/xamarin/2014/forms/navigation"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:utils="clr-namespace:NMAP.Utils"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="NMAP.MainPage"     
+             ios:Page.UseSafeArea="true"
+             DrawerWidth="{OnIdiom Phone='240', Tablet='360'}"
+             DrawerFooterHeight="Auto"
+             DrawerContentHeight="*" >
+    
+    <dxn:DrawerPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="pointColor">#45c9b0</Color>
+            <Color x:Key="switchOnColor">#003851</Color>
+            <Color x:Key="fontblack">#444444</Color>
+            <Color x:Key="fontTitleblack">#2d2d2d</Color>
+            <Color x:Key="cardBottomBackgroundColor">#efefef</Color>
+            <Color x:Key="rejectBtnBackgroundColor">#b5b5b5</Color>
+            <Color x:Key="contentMainFrameBackgroundColor">#efefef</Color>
+            
+            <DataTemplate x:Key="hasSubMenuTemplate">
+                <xct:Expander VerticalOptions="Center">
+                    <xct:Expander.Header>
+                        <StackLayout VerticalOptions="Center"  >
+                            <Grid  Padding="25,0,10,0"  VerticalOptions="Center"  >
+                                <Grid.Margin>
+                                    <OnPlatform x:TypeArguments="Thickness">
+                                        <On Platform="iOS" Value="0,10"/>
+                                    </OnPlatform>
+                                </Grid.Margin>
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Label  Text="{Binding Title}" FontSize="15" TextColor="#111111" FontFamily="NotoSansKR" VerticalOptions="Center" Padding="0,2,0,1"/>
+                                </StackLayout>
+                                
+                                <Image  Source="expand_up.png" HorizontalOptions="End" VerticalOptions="Center" >
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}" Value="True">
+                                            <Setter Property="Source" Value="expand_down.png" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Grid>
+                            <Label  BackgroundColor="#888888" HeightRequest="0.2" Opacity="0.3"/>
+                        </StackLayout>
+                    </xct:Expander.Header>
+                    <xct:Expander.Content>
+                        <StackLayout Padding="35,0,10,0" BackgroundColor="#f3f3f3" IsClippedToBounds="True" BindableLayout.ItemsSource="{Binding Items}" VerticalOptions="Center" >
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalOptions="Center" >
+                                        <Grid.Margin>
+                                            <OnPlatform x:TypeArguments="Thickness">
+                                                <On Platform="iOS" Value="0,10"/>
+                                            </OnPlatform>
+                                        </Grid.Margin>
 
-</ContentPage>
+                                        <Grid.GestureRecognizers >
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                                        </Grid.GestureRecognizers>
+                                        <Label Text="{Binding Title}" TextColor="#888888" FontSize="15" FontFamily="NotoSansKR" Padding="0,2,20,1"/>
+                                      </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </xct:Expander.Content>
+                </xct:Expander>
+            </DataTemplate>
+            <DataTemplate x:Key="nonSubMenuTemplate">
+                <StackLayout VerticalOptions="Center">
+                    <Grid  Padding="25,0,10,0"  VerticalOptions="Center"  >
+                        <Grid.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="iOS" Value="0,10"/>
+                            </OnPlatform>
+                        </Grid.Margin>
+                        <Grid.GestureRecognizers >
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                        </Grid.GestureRecognizers>
+
+                        <Label  Text="{Binding Title}" FontSize="15" TextColor="#111111" FontFamily="NotoSansKR" VerticalOptions="Center"/>
+                    </Grid>
+                    <Label  BackgroundColor="#888888" HeightRequest="0.2" Opacity="0.3"/>
+                </StackLayout>
+            </DataTemplate>
+
+            <utils:MenuListTemplateSelector  x:Key="menuListTemplateSelector" HasSubMenu="{StaticResource hasSubMenuTemplate}" NoneSubMenu="{StaticResource nonSubMenuTemplate}"/>
+        </ResourceDictionary>
+    </dxn:DrawerPage.Resources>
+   
+    <dxn:DrawerPage.DrawerHeaderContent>
+        <StackLayout BackgroundColor="#ffff" Spacing="16" Margin="16,16,16,16">
+            <Frame CornerRadius="4" BackgroundColor="#f3f3f3"  HasShadow="False" Margin="0,0,0,0" Padding="10,10,10,10">
+                <Label>
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0}({1})">
+                            <Binding Path="LoginInfo.UserName" />
+                            <Binding Path="LoginInfo.UserId" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </Frame>
+        </StackLayout>
+    </dxn:DrawerPage.DrawerHeaderContent>
+    
+    <dxn:DrawerPage.DrawerContent>
+        <Grid Grid.Row="0" RowDefinitions="Auto,*" >
+            <ScrollView Grid.Row="1">
+                <StackLayout Spacing="1"  BindableLayout.ItemsSource="{Binding MenuList}" BindableLayout.ItemTemplateSelector="{StaticResource menuListTemplateSelector}" Margin="0"/>
+            </ScrollView>
+        </Grid>
+    </dxn:DrawerPage.DrawerContent>
+
+    <dxn:DrawerPage.DrawerFooterContent>
+        <Grid ColumnDefinitions="*,Auto,Auto" BackgroundColor="#e0e0e0"  Padding="10">
+            <ImageButton Grid.Column="0" Source="nc_Title_small.png" HeightRequest="24" Aspect="AspectFit" BackgroundColor="Transparent" HorizontalOptions="Start" />
+            <ImageButton Grid.Column="2" Source="logout.png" WidthRequest="24" HeightRequest="24" Aspect="AspectFit" Clicked="Logout_Clicked" BackgroundColor="Transparent"/>
+        </Grid>
+    </dxn:DrawerPage.DrawerFooterContent>
+
+</dxn:DrawerPage>
