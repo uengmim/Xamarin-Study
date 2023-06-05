@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace xamarinStudy.iOS
+namespace NMAP.iOS
 {
     public class Application
     {
