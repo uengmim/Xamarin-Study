@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace xamarinStudy.iOS
+namespace NMAP.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -13,7 +13,7 @@ namespace xamarinStudy.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        //
+       //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
         // visible.
@@ -22,7 +22,19 @@ namespace xamarinStudy.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            App.ScreenHeight = (int)UIScreen.MainScreen.Bounds.Height;
+            App.ScreenWidth = (int)UIScreen.MainScreen.Bounds.Width;
+
+            DevExpress.XamarinForms.Navigation.iOS.Initializer.Init();
+            DevExpress.XamarinForms.Popup.iOS.Initializer.Init();
+            DevExpress.XamarinForms.Editors.iOS.Initializer.Init();
+            DevExpress.XamarinForms.DataGrid.iOS.Initializer.Init();
+            DevExpress.XamarinForms.DataForm.iOS.Initializer.Init();
+
             global::Xamarin.Forms.Forms.Init();
+            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+            DevExpress.XamarinForms.DataForm.iOS.Initializer.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

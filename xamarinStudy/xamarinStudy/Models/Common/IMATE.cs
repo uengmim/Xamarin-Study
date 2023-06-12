@@ -2,7 +2,6 @@
 using NAMHE.Model;
 using NMAP.Models.MFMOU;
 using NMAP.Utils;
-using NMAP.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +29,7 @@ namespace NMAP.Models.Common
         /// 오더리스트 RFC
         /// </summary>
         /// <returns></returns>
-        public async Task<ObservableCollection<ZPMS0002Model>> GetOrderList(DateTime StartDate, DateTime EndDate, LoginDataModel loginInfo)
+        public async Task<ObservableCollection<ZPMS0002Model>> GetOrderList(DateTime StartDate, DateTime EndDate)
         {
             try
             {
@@ -40,24 +39,12 @@ namespace NMAP.Models.Common
                 var model = new ObservableCollection<ZPMS0002Model>();
                 var zpmf0001List = new ZPMF0001ModelList();
 
-                var isADMIN = false;
-                var parnr = loginInfo.empId;
-
-                foreach (var rol in loginInfo.Roles)
-                {
-                    if (rol == "ADMIN")
-                        isADMIN = true;
-                }
-
-                if (isADMIN)
-                    parnr = "";
-
                 // 객체 TYPE 인식 문제 때문에 NULL 값을 전송 하면안됨, 기본 값을 반드시 넣어 주어야 함.
                 zpmf0001List.Add(new ZPMF0001Model()
                 {
                     I_WERKS = "1000",
                     I_AUFNR = "",
-                    I_PARNR = parnr,
+                    I_PARNR = "",
                     I_AUART = "",
                     I_STAT = "",
                     I_IDAT1_S = StartDate,
