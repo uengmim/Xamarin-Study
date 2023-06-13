@@ -197,3 +197,14 @@ public class CustomView : ContentView
 - __Model__ : 응용 프로그램의 데이터를 캡슐화하는 비시각적 클래스. Model은 일반적으로 비지니스 및 Logic과 함께 데이터모델을 포함하는 앱의 도메인 모
   - View는 ViewModel에 대해서 알고 있고 ViewModel은 Model에 대해서 알고 있지만 Model은 ViewModel을 인식하지 못하고 ViewModel은 View를 인식하지 못한다.
   - 그렇기 때문에 ViewModel은 Model에서 View를 분리하고 Model이 View와 독립적으로 발전할 수 있게 한다.
+## MVC
+- MVC 패턴은 Model + View + Controller를 합친 용어
+![image](https://github.com/uengmim/Xamarin-Study/assets/72143238/f90a1c12-68f2-48bc-aa52-dbcd3bfa4cbe)
+- Model : 어플리케이션에서 사용되는 데이터와 그 데이터를 처리하는 부분
+- View : 사용자에서 보여지는 UI 부분
+- Controller : 사용자의 입력(Action)을 받고 처리하는 부분
+### 동작
+1. 사용자의 Action들은 Controller에 들어오게 됨
+2. Controller는 사용자의 Action를 확인하고, Model을 업데이트.
+3. Controller는 Model을 나타내줄 View를 선택.
+4. View는 Model을 이용하여 화면을 나타.
