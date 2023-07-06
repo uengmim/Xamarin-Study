@@ -1,6 +1,22 @@
-<img width="471" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/b6a38912-6262-4516-a5b5-cc513764da8d"># C#
+# C#
 - 마이크로소프트에서 개발한 닷넷(.NET) 프레임워크 기반 범용 목적의 다중 패러다임 프로그래밍 언어
 
 ## 닷넷 프레임워크(.NET Framework)
 - 웹앱, 모바일 앱, 게임 등을 만들기 위한 오픈소스, 크로스 플랫폼 개발 환경
 <img width="471" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/744440b8-0f4d-4894-8990-fca1a8672239">
+
+### 범용 프로그래밍 언어
+- 다양한 도메인의 소프트웨어를 개발하기 위해 설계된 프로그래밍 언어
+- ex) C, C++, java, python, visual basic, kotlin, swift
+
+### 다중 패러다임 언어
+- 하나 이상의 프로그래밍 스타일을 지원하는 프로그래밍 언어
+
+#### 명령형(Imperative)
+1. 절차적 프로그래밍 언어 - 시간의 흐름에 따라 코드를 작성하는 프로그래밍 스타일 (ex C, 포트란, 베이직)
+2. 객체 지향 프로그래밍 언어 - 모든 사물을 객체로 표현, 객체의 속성과 메소드의 호출로 프로그램을 작성함 (ex C++, Java, C#)
+
+#### 선언현(Declarative)
+1. 함수형 프로그래밍 언어
+2. 논리형 프로그래밍 언어
+3. 데이터 흐름형 프로그래밍 언어
