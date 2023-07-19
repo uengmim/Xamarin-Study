@@ -16,7 +16,41 @@
 1. 절차적 프로그래밍 언어 - 시간의 흐름에 따라 코드를 작성하는 프로그래밍 스타일 (ex C, 포트란, 베이직)
 2. 객체 지향 프로그래밍 언어 - 모든 사물을 객체로 표현, 객체의 속성과 메소드의 호출로 프로그램을 작성함 (ex C++, Java, C#)
 
-#### 선언현(Declarative)
+#### 선언형(Declarative)
 1. 함수형 프로그래밍 언어
 2. 논리형 프로그래밍 언어
 3. 데이터 흐름형 프로그래밍 언어
+
+
+#### 데이터 타입
+ - C#을 포함한 모든 닷넷 프로그래밍언어는 닷넷의 Common Type System에 정의된 .NET 데이터 타입을 사용
+<img width="389" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/a3204d04-d72e-4adb-afa6-69712b5c8ba2">
+**C# 리터럴 데이터**
+```
+123    // int 리터럴
+12.3   // double 리터럴
+"A"    // string 리터럴
+'a'    // char 리터럴
+true   // bool 리터럴
+```
+**C# 데이터 타입**
+```
+// Bool
+bool b = true;
+
+// Numeric
+short sh = -32768;   
+int i = 2147483647;  
+long l = 1234L;      // L suffix
+float f = 123.45F;   // F suffix
+double d1 = 123.45; 
+double d2 = 123.45D; // D suffix
+decimal d = 123.45M; // M suffix
+
+// Char/String
+char c = 'A';
+string s = "Hello";
+
+// DateTime  2011-10-30 12:35
+DateTime dt = new DateTime(2011, 10, 30, 12, 35, 0);
+```
