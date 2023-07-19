@@ -25,6 +25,7 @@
 #### 데이터 타입
  - C#을 포함한 모든 닷넷 프로그래밍언어는 닷넷의 Common Type System에 정의된 .NET 데이터 타입을 사용
 <img width="389" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/a3204d04-d72e-4adb-afa6-69712b5c8ba2">
+
 **C# 리터럴 데이터**
 ```
 123    // int 리터럴
