@@ -197,7 +197,7 @@ int[][,] jaggedArray4 = new int[3][,]
     new int[,] { {11,22}, {99,88}, {0,9} }
 };
 ```
-### C# 배열 
+### C# 배열 사용
 - 배열 사용 예제
 ```
 static void Main(string[] args)
@@ -227,4 +227,26 @@ static int CalculateSum(int[] scoresArray) // 배열 받는 쪽
     }
     return sum;
 }
+```
+### 배열 foreach 사용
+**1차원 배열**
+```
+int[] numbers = { 4, 5, 6, 1, 2, 3, -2, -1, 0 };
+foreach (int i in numbers)
+{
+    System.Console.Write("{0} ", i);
+}
+// Output: 4 5 6 1 2 3 -2 -1 0
+```
+**차원 배열**
+```C#
+int[,] numbers2D = new int[3, 2] { { 9, 99 }, { 3, 33 }, { 5, 55 } };
+// Or use the short form:
+// int[,] numbers2D = { { 9, 99 }, { 3, 33 }, { 5, 55 } };
+
+foreach (int i in numbers2D)
+{
+    System.Console.Write("{0} ", i);
+}
+// Output: 9 99 3 33 5 55
 ```
