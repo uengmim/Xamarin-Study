@@ -29,7 +29,7 @@
 ### C# 리터럴 데이터
 - C# 코드에서 123,true,"ABC"와 같이 값을 직접 써줄 수 있다. 이것을 리터럴이라고 한다. 별도의 접미어 표시가 없으면 C# 컴파일러는 기본적으로 데이터 타입 값을 할당한다.
 - 만약 특정 데이터 타입을 지정하고 싶으면 리터럴 데이터 뒤에 1~2자의 타입 지정 접미어를 추가해야한다.
-```
+```C#
 123    // int 리터럴
 12.3   // double 리터럴
 "A"    // string 리터럴
@@ -39,7 +39,7 @@ true   // bool 리터럴
 ### C# 접미어(Suffix) 데이터 타입
 <img width="318" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/5ec3da6c-399a-41a0-85ba-e484d6601f83">
 
-```
+```C#
 // Bool
 bool b = true;
 
@@ -67,7 +67,7 @@ DateTime dt = new DateTime(2011, 10, 30, 12, 35, 0);
 
 ### 최댓값 최솟값
 - 숫자형 데이터 타입의 최댓값이나 최소값을 알아내가 위해서는 .NET 데이터 타입 클래스들의 MaxValue, MinValue 프로퍼티를 사용한다.
-```
+```C#
 int i = int.MaxValue;
 float f = float.MinValue;
 ```
@@ -79,7 +79,7 @@ float f = float.MinValue;
 ### Nullable Type
 - 정수(int)나 날짜(DateTime)와 같은 Value Type은 일반적으로 NULL을 가질 수 없다. C# 2.0에서부터 이러한 타입들에 NULL을 가질 수 있게 하였는데, 이를 Nullable Type 이라 부른다.
 - C#에서 물음표(?)를 int나 DateTime 타입명 뒤에 붙이면 즉, int? 혹은 DateTime? 같이 하면 Nullable Type이 된다. 이는 컴파일하면 .NET의 Nullable<T> 타입으로 변환된다. Nullable Type (예: int?) 을 일반 Value Type (예: int)으로 변경하기 위해서는 Nullable의 .Value 속성을 사용한다.
-```
+```C#
 // Nullable 타입
 int? i = null;
 i = 101;
@@ -98,7 +98,7 @@ int k = j.Value;
 - 로컬 변수는 사용 전에 값을 할당해야 함(기본값을 할당 X)
 - 전역 변수(Field)는 값을 할당하지 않으면 기본값이 자동으로 할당 (ex int일 경우 0 할당)
 - 모든 변수는 대소문자 구별
-```
+```C#
 using System;
 
 namespace ConsoleApplication1
@@ -143,7 +143,7 @@ namespace ConsoleApplication1
 ### C# 배열
 - 배열은 동일한 데이터 타입 요소들로 구성된 데이타 집합으로 인덱스를 통하여 개개의 배열 요소를 엑세스 가능
 - 배열은 첫번째 요소가 인덱스 0
-```
+```C#
 // 1차 배열
 string[] players = new string[10];
 string[] Regions = { "서울", "경기", "부산" };
@@ -166,7 +166,7 @@ string[,,] Cubes;
 - 다차원 배열에서 배열 요소 크기가 동일한 Rectangular 배열은 C#에서 [,] 와 같이 괄호안에 콤마로 분리하여 (C 언어 스타일) 다차원을 표현한다.
 - 하지만 각 차원별 배열 요소 크기가 가변적인 가변 배열(Jagged Array)의 경우 [][] 와 같이 각 차원마다 괄호를 별도로 사용한다.
 **Jagged Array (가변 1차원 배열)**
-```
+```C#
 //각각 정수의 1차원 배열인 세 개의 요소를 포함하는 1차원 배열의 선언
 int[][] jaggedArray = new int[3][];
 
@@ -189,7 +189,7 @@ new int[] { 11, 22 }
 };
 ```
 **Jagged Array (가변 다차원 배열)**
-```
+```C#
 int[][,] jaggedArray4 = new int[3][,]
 {
     new int[,] { {1,3}, {5,7} },
@@ -199,7 +199,7 @@ int[][,] jaggedArray4 = new int[3][,]
 ```
 ### C# 배열 사용
 - 배열 사용 예제
-```
+```C#
 static void Main(string[] args)
 {
     int sum = 0;
@@ -230,7 +230,7 @@ static int CalculateSum(int[] scoresArray) // 배열 받는 쪽
 ```
 ### 배열 foreach 사용
 **1차원 배열**
-```
+```C#
 int[] numbers = { 4, 5, 6, 1, 2, 3, -2, -1, 0 };
 foreach (int i in numbers)
 {
@@ -250,3 +250,34 @@ foreach (int i in numbers2D)
 }
 // Output: 9 99 3 33 5 55
 ```
+## C# 문자열
+- string은 이중부호, char는 단일부호 사용
+- 문자열(string)은 문자(character)의 집합체이다. 문자열 안에 있는 각 문자를 엑세스하고 싶으면, 인덱스를 사용하여 문자 요소를 엑세스
+
+### C# StringBuilder 클래스
+- Mutable 타입인 StringBuilder 클래스는 문자열 갱신이 많은 곳에서 자주 사용되는데 이는 이 클래스가 별도 메모리를 생성,소멸하지 않고 일정한 버퍼를 갖고 문자열 갱신을 효율적으로 처리
+- 특히 루프 안에서 계속 문자열을 추가 변경하는 코드에서는 string 대신 StringBuilder를 사용
+```C#
+using System;
+using System.Text;
+
+namespace MySystem
+{
+   class Program
+   {
+      static void Main(string[] args)
+      {                  
+         StringBuilder sb = new StringBuilder();
+         for (int i = 1; i <= 26; i++)
+         {
+            sb.Append(i.ToString());
+            sb.Append(System.Environment.NewLine);
+         }
+         string s = sb.ToString();
+
+         Console.WriteLine(s);
+      }
+   }
+}
+```
+  
