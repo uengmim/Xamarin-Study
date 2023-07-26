@@ -22,11 +22,11 @@
 3. 데이터 흐름형 프로그래밍 언어
 
 
-## 데이터 타입
+## C# 데이터 타입
  - C#을 포함한 모든 닷넷 프로그래밍언어는 닷넷의 Common Type System에 정의된 .NET 데이터 타입을 사용
 <img width="389" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/a3204d04-d72e-4adb-afa6-69712b5c8ba2">
 
-### C# 리터럴 데이터
+### 리터럴 데이터
 - C# 코드에서 123,true,"ABC"와 같이 값을 직접 써줄 수 있다. 이것을 리터럴이라고 한다. 별도의 접미어 표시가 없으면 C# 컴파일러는 기본적으로 데이터 타입 값을 할당한다.
 - 만약 특정 데이터 타입을 지정하고 싶으면 리터럴 데이터 뒤에 1~2자의 타입 지정 접미어를 추가해야한다.
 ```C#
@@ -36,7 +36,7 @@
 'a'    // char 리터럴
 true   // bool 리터럴
 ```
-### C# 접미어(Suffix) 데이터 타입
+### 접미어(Suffix) 데이터 타입
 <img width="318" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/5ec3da6c-399a-41a0-85ba-e484d6601f83">
 
 ```C#
@@ -134,13 +134,13 @@ namespace ConsoleApplication1
     }
 }
 ```
-### C# 상수
+### 상수
 - c# 상수는 const를 사용하여 정의
 **차이점**
 1. 상수와 변수 차이점은 변수는 프로그램 중간에 값을 변경할 수 있지만 상수는 초기에 정한 값을 중간에 변경할 수 없다.
 2. const는 필드 선언부에서 사용되거나 메서드 내에서 사용될 수 있으며 컴파일시 상수 값이 결정
 
-### C# 배열
+### 배열
 - 배열은 동일한 데이터 타입 요소들로 구성된 데이타 집합으로 인덱스를 통하여 개개의 배열 요소를 엑세스 가능
 - 배열은 첫번째 요소가 인덱스 0
 ```C#
@@ -197,7 +197,7 @@ int[][,] jaggedArray4 = new int[3][,]
     new int[,] { {11,22}, {99,88}, {0,9} }
 };
 ```
-### C# 배열 사용
+### 배열 사용
 - 배열 사용 예제
 ```C#
 static void Main(string[] args)
@@ -250,11 +250,11 @@ foreach (int i in numbers2D)
 }
 // Output: 9 99 3 33 5 55
 ```
-## C# 문자열
+## 문자열
 - string은 이중부호, char는 단일부호 사용
 - 문자열(string)은 문자(character)의 집합체이다. 문자열 안에 있는 각 문자를 엑세스하고 싶으면, 인덱스를 사용하여 문자 요소를 엑세스
 
-### C# StringBuilder 클래스
+### StringBuilder 클래스
 - Mutable 타입인 StringBuilder 클래스는 문자열 갱신이 많은 곳에서 자주 사용되는데 이는 이 클래스가 별도 메모리를 생성,소멸하지 않고 일정한 버퍼를 갖고 문자열 갱신을 효율적으로 처리
 - 특히 루프 안에서 계속 문자열을 추가 변경하는 코드에서는 string 대신 StringBuilder를 사용
 ```C#
@@ -313,7 +313,7 @@ class Program
  - C#은 다른 프로그래밍 언어와 비슷하게 수식 연산자, 논리 연산자, 조건 연산자등 다양한 연산자들을 제공
 <img width="392" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/c01e2fb4-67a1-454c-a5ad-19c821c601f2">
 
-## C# if 조건문
+## 조건문
 ### switch 조건문
 - switch문은 조건값이 여러 값들을 가질 경우 각 case 별 다른 문장들을 실행할 때 사용된다. 각각의 경우에 해당하는 값을 case 문 뒤에 지정하며 어떤 경우에도 속하지 않으면 default 문을 사용하여 지정
 - 각 case 문 내에서 break를 사용하면 해당 case 블럭의 문장들을 실행하고 switch 문을 빠져나온다.
@@ -335,8 +335,8 @@ switch (category)
 }
 //category 값이 딸기일 때 return 1100
 ```
-## 반복문
-### C# for 반복문
+## C# 반복문
+### for 반복문
 - 루프 안에 있는 문장들을 반복적으로 실행할떄 사용 for 루프는 일반적으로 카운터 변수를 이용해 일정 범위 동안 for 루프 안의 블럭을 실행
 ```C#
 class Program
@@ -412,7 +412,7 @@ static void Main(string[] args)
     }
 }
 ```
-### DO While 반복문
+### Do While 반복문
 - do ~ while은 위의 while문과 거의 비슷하나, 마지막 while 조건식까지 가기 전에 do ~ while 사이의 블럭을 미리 한번 실행한다는 점에서 차이가 있음
 ```C#
 static void Main(string[] args)
