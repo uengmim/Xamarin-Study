@@ -281,3 +281,188 @@ namespace MySystem
 }
 ```
   
+## C# enum (열거형)
+- C#의 키워드인 enum은 열거형 상수를 표현하기 위힌 것으로 이를 사용하면 상수 숫자들을 보다 의미있는 단어로 표현 가능
+- enum의 각 요소는 별도의 지정 없이 첫번째 요소가 0, 두번째가 1, 세번째가 2와 같이 1씩 증가된 값 할당
+```C#
+public enum Category
+{
+   Cake,
+   IceCream,
+   Bread
+}
+```
+- enum 타입은 숫자형 타입과 호환 가능
+- 만약 enum 타입의 변수를 int로 캐스팅하면 해당 enum 값을 얻게 된다.
+```C#
+class Program
+{
+    enum City
+    {
+        Seoul,   // 0
+        Daejun,  // 1
+        Busan = 5,  // 5
+        Jeju = 10   // 10
+    }
+}
+```
+### flag enum
+- enum의 각 멤버들은 **비트**별로 구분되는 값들(예: 1,2, 4, 8)을 갖을 수 있는데 이렇게 enum 타입이 비트 필드를 갖는다는 것을 표시하기 위해 enum 선언문 위에 [flag]라는 Attribute를 지정
+
+ ## C# 연산자
+ - C#은 다른 프로그래밍 언어와 비슷하게 수식 연산자, 논리 연산자, 조건 연산자등 다양한 연산자들을 제공
+<img width="392" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/c01e2fb4-67a1-454c-a5ad-19c821c601f2">
+
+## C# if 조건문
+### switch 조건문
+- switch문은 조건값이 여러 값들을 가질 경우 각 case 별 다른 문장들을 실행할 때 사용된다. 각각의 경우에 해당하는 값을 case 문 뒤에 지정하며 어떤 경우에도 속하지 않으면 default 문을 사용하여 지정
+- 각 case 문 내에서 break를 사용하면 해당 case 블럭의 문장들을 실행하고 switch 문을 빠져나온다.
+```C#
+switch (category)
+{
+   case "사과":
+      price = 1000;
+      break;
+   case "딸기":
+      price = 1100;
+      break;
+   case "포도":
+      price = 900;
+      break;
+   default:
+      price = 0;
+      break;
+}
+//category 값이 딸기일 때 return 1100
+```
+## 반복문
+### C# for 반복문
+- 루프 안에 있는 문장들을 반복적으로 실행할떄 사용 for 루프는 일반적으로 카운터 변수를 이용해 일정 범위 동안 for 루프 안의 블럭을 실행
+```C#
+class Program
+{
+    static void Main(string[] args)
+    {
+        // for 루프
+        for (int i = 0; i < 10; i++)
+        {
+           Console.WriteLine("Loop {0}", i);
+        }
+    }
+}
+```
+### foreach 반복문
+- foreach문은 배열이나 컬렉션에 주로 사용
+- 컬렉션의 각 요소를 하나씩 꺼내와서 foreach루프내 블럭을 실행할 때 사용
+```C#
+static void Main(string[] args)
+{
+    string[] array = new string[] { "AB", "CD", "EF" };
+
+    // foreach 루프
+    foreach (string s in array)
+    {
+       Console.WriteLine(s);
+    }
+}
+```
+- C#에서 for와 foreach를 비교할때 성능적인 면과 가독성 측면을 고러혀는데 경우에 따라 for이 더 빠를 수 있지만 대부분 차이가 크지 않다. foreach는 for보다 훨씬 간결한 코드를 제공한다.
+- **루프에서 많이 사용되는 배열인 경우 foreach가 내부적인 최적화를 거쳐 for루프와 동일한 성능이므로 더 간결한 foreach 사용을 권장**
+
+```c#
+static void Main(string[] args)
+{
+    // 3차배열 선언
+    string[,,] arr = new string[,,] { 
+            { {"1", "2"}, {"11","22"} }, 
+            { {"3", "4"}, {"33", "44"} }
+    };
+
+    //for 루프 : 3번 루프를 만들어 돌림
+    for (int i = 0; i < arr.GetLength(0); i++)
+    {
+        for (int j = 0; j < arr.GetLength(1); j++)
+        {
+            for (int k = 0; k < arr.GetLength(2); k++)
+            {
+                Debug.WriteLine(arr[i, j, k]);
+            }
+        }
+    }
+
+    //foreach 루프 : 한번에 3차배열 모두 처리
+    foreach (var s in arr)
+    {
+        Debug.WriteLine(s);
+    }
+}
+```
+### While 반복문
+- while 조건식이 true인동안 계속 while 블럭을 실행할 때 사용
+```C#
+static void Main(string[] args)
+{
+    int i=1;
+
+    // while 루프
+    while (i <= 10)
+    {
+       Console.WriteLine(i);
+       i++;
+    }
+}
+```
+### DO While 반복문
+- do ~ while은 위의 while문과 거의 비슷하나, 마지막 while 조건식까지 가기 전에 do ~ while 사이의 블럭을 미리 한번 실행한다는 점에서 차이가 있음
+```C#
+static void Main(string[] args)
+{
+    int i=1;
+
+    // do ~ while 루프
+    do
+    {
+       Console.WriteLine(i);
+       i++;
+    } while (i < 10);
+}
+```
+
+
+### System
+#### System의 구성 요소
+- System : 여러 프로그램이 결합하여 지정된 역할을 수행하는 체계
+- Program : 독립적으로 단일 역할을 수행하는 요소
+- Assembly : Program을 구성하는 단위 기능의 집합체 
+- Type : Assembly를 구성하는 단위 기능
+- Variable : Type을 구성하는 변경이 가능한 변수 (메모리의 값의 변경이 가능)
+- Constant : Type을 구성하는 변경이 불가능한 상수 (메모리의 값의 변경이 불가능)
+- Static Variable : Program 전체에 값이 공유되는 정적 변수
+- Literal : “abcd”, 1234 등 실제 값들 (변수와 상수에 넣어지는 값들)
+
+#### System의 설명 요소
+- Manifest : Assembly의 구조와 속성 및 식별 정보를 서술해 놓은 것 (Assembly 설명서)
+- Attribute : Assembly를 구성하는 Type의 속성
+
+#### 자료 구조
+- Scalar [Legasy : array(메모리 상에 데이터가 연속적으로 저장), List(메모리 상에 데이터가 비연속적으로 저장), Tree(이진 트리), Hashset], [객체 지향적 : Collection(Array와 유사), Dictionary(Value 형태의 값을 저장할 수 있는 자료 구조)], [함수 지향적 : Enumerable(셀 수 있는 집합), Queryable(데이터를 요청하여 받을 수 있음 ex) mssql 등)]
+- Vector [Legasy : Queue, Stack], [객체 지향적 : Bag(넣고 빼는 것이 가능, 거의 사용 X)]
+
+#### 객체의 구성 요소(매커니즘)
+- Method : 객체의 기능
+- Property : 객체의 특성
+- Virtual : 객체의 기능 중 자식들이 자신만의 고유 기능을 가질 수 있는 것
+- Abstract : 실체가 없는 개념적으로 존재 하는 것
+- Override : 자식들이 자신만의 고유 기능으로 다시 정의하는 것
+- New : 객체를 메모리에 로드하여 실체를 가지게 하는 것 (객체를 생성)
+
+#### Imate 구성
+- XNCORE -  Assembly 동적 로딩
+- XNCOMMON - imate config 로딩, Data Provide(정보 관리) -> imate config loader(xaml로 구성)[중요 : **XNConfiguration : imate 구성 정보(Section으로 나눔)**, XNConfigurationManager : 구성 정보 관리(NEW), imatecc IMATESERVER에서 사용]
+- DPAC - Data Provide 추상 Class -> IDPF - Data Provider 인터페이스
+- DPCORE - Data Provide 핵심 구현
+- DIM - Data interface Module, Data Provide에 대한 추상 계층 제공
+- RFCDIM - RFC Interface Module
+- imateRFCSERVER - RFC server
+
+IMATEDB2 만들기 (DPORA, DPSQL, DPSAP) ibm
