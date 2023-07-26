@@ -250,7 +250,7 @@ foreach (int i in numbers2D)
 }
 // Output: 9 99 3 33 5 55
 ```
-## 문자열
+## C#문자열
 - string은 이중부호, char는 단일부호 사용
 - 문자열(string)은 문자(character)의 집합체이다. 문자열 안에 있는 각 문자를 엑세스하고 싶으면, 인덱스를 사용하여 문자 요소를 엑세스
 
@@ -429,8 +429,8 @@ static void Main(string[] args)
 ```
 
 
-### System
-#### System의 구성 요소
+## System
+### System의 구성 요소
 - System : 여러 프로그램이 결합하여 지정된 역할을 수행하는 체계
 - Program : 독립적으로 단일 역할을 수행하는 요소
 - Assembly : Program을 구성하는 단위 기능의 집합체 
@@ -440,15 +440,15 @@ static void Main(string[] args)
 - Static Variable : Program 전체에 값이 공유되는 정적 변수
 - Literal : “abcd”, 1234 등 실제 값들 (변수와 상수에 넣어지는 값들)
 
-#### System의 설명 요소
+### System의 설명 요소
 - Manifest : Assembly의 구조와 속성 및 식별 정보를 서술해 놓은 것 (Assembly 설명서)
 - Attribute : Assembly를 구성하는 Type의 속성
 
-#### 자료 구조
+### 자료 구조
 - Scalar [Legasy : array(메모리 상에 데이터가 연속적으로 저장), List(메모리 상에 데이터가 비연속적으로 저장), Tree(이진 트리), Hashset], [객체 지향적 : Collection(Array와 유사), Dictionary(Value 형태의 값을 저장할 수 있는 자료 구조)], [함수 지향적 : Enumerable(셀 수 있는 집합), Queryable(데이터를 요청하여 받을 수 있음 ex) mssql 등)]
 - Vector [Legasy : Queue, Stack], [객체 지향적 : Bag(넣고 빼는 것이 가능, 거의 사용 X)]
 
-#### 객체의 구성 요소(매커니즘)
+### 객체의 구성 요소(매커니즘)
 - Method : 객체의 기능
 - Property : 객체의 특성
 - Virtual : 객체의 기능 중 자식들이 자신만의 고유 기능을 가질 수 있는 것
@@ -456,7 +456,7 @@ static void Main(string[] args)
 - Override : 자식들이 자신만의 고유 기능으로 다시 정의하는 것
 - New : 객체를 메모리에 로드하여 실체를 가지게 하는 것 (객체를 생성)
 
-#### Imate 구성
+### Imate 구성
 - XNCORE -  Assembly 동적 로딩
 - XNCOMMON - imate config 로딩, Data Provide(정보 관리) -> imate config loader(xaml로 구성)[중요 : **XNConfiguration : imate 구성 정보(Section으로 나눔)**, XNConfigurationManager : 구성 정보 관리(NEW), imatecc IMATESERVER에서 사용]
 - DPAC - Data Provide 추상 Class -> IDPF - Data Provider 인터페이스
