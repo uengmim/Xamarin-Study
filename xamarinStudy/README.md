@@ -427,6 +427,235 @@ static void Main(string[] args)
     } while (i < 10);
 }
 ```
+## C# yield
+- yield는 호출자에게 컬렉션 데이터를 하나씩 리턴할 때 사용
+- Enumerator(Iterator) 기능은 집합적인 데이터셋으로부터 데이터를 하나씩 호출자에게 보내주는 역할
+- yield는 2가지 방식으로 사용
+  1) yield return - 컬렉션 데이터를 하나씩 리턴할 때 사용
+  2) yield break - 리턴을 중지하고 Iteration 루프를 빠져 나올 때 사용
+```C#
+using System;
+using System.Collections.Generic;
+ 
+class Program
+{
+    static IEnumerable<int> GetNumber()
+    {
+        yield return 10;  // 첫번째 루프에서 리턴되는 값
+        yield return 20;  // 두번째 루프에서 리턴되는 값
+        yield return 30;  // 세번째 루프에서 리턴되는 값
+    }
+ 
+    static void Main(string[] args)
+    {
+        foreach (int num in GetNumber())
+        {
+            Console.WriteLine(num);
+        }             
+    }
+}
+//실행값
+10
+20
+30
+```
+## C# 예외 처리 (Exception)
+- 모든 닷넷 프로그래밍 언어는 Exception 메커니즘을 따라 예외를 처리
+- 객체를 기본으로 처리
+- 만약 Exception이 발생하였는데 프로그램 내에서 처리하지 않으면 프로그램은 Chash하여 종료
+- try, catch, finally 키워드로 Exception 핸들링
+```C#
+try
+{
+   // 실행하고자 하는 문장들
+   DoSomething();
+}
+catch (Exception ex)
+{
+   // 에러 처리/로깅 등
+   Log(ex);
+   throw;
+}
+```
+### try-catch-fianlly
+- try는 실행하려는 프로그램 명령문을 갖는 블럭 _ 여기서 어떠한 오류가 발생하면 catch문에서 잡힌다.
+- 모든 Exception을 잡고 싶을 때는 catch { ... } 와 같이 하거나 catch (Exception ex) { ... }처럼 모든 Exception의 베이스 클래스인 System.Exception를 잡으면 된다.
+- 특정 Exception을 잡기 위해서는 해당 Exception Type을 catch하면 된다. 즉, Argument와 관련된 Exception을 잡고 싶으면, catch (ArgumentException ex) { ... } 와 같이 잡게된다.
+- catch 블럭은 하나 or 여러개 일 수 있다
+- finally는 Exception이 발생했던 발생하지 않았던 상관없이 마지막에 반드시 실행되는 블럭이다.
+- 예를 들어, try 블럭에서 SQL Connection객체를 만든 경우, finally 블럭에서 Connection 객체의 Close() 메서드를 호출하면, 에러 발생 여부와 상관없이 항상 Connection객체가 닫히게 된다.
+```C#
+try
+{
+   //실행 문장들
+}
+catch (ArgumentException ex)
+{
+   // Argument 예외처리
+}
+catch (AccessViolationException ex)
+{
+   // AccessViolation 예외처리
+}
+finally
+{
+   // 마지막으로 실행하는 문장들
+}
+```
+### throw
+- try 블럭에서 Exception이 발생하였는데 이를 catch 문에서 잡었다면, Exception은 이미 처리된 것으로 간주된다. 때때로 catch문에서 기존의 Exception을 다시 상위 호출자로 보내고 싶을 때가 있는데, 이때 throw 를 사용
+- trow 문은 크게 3가지로 구별
+  1) throw 문 다음에 catch에서 전달받은 Exception 객체를 쓰는 경우
+  2) throw 문 다음에 새 Exception 객체를 생성해서 전달하는 경우
+  3) throw 문 다음에 아무것도 없는 경우
+```C#
+try
+{
+    // 실행 문장들
+    Step1();
+    Step2();
+    Step3();
+}
+catch(IndexOutOfRangeException ex)
+{
+    // 새로운 Exception 생성하여 throw
+    throw new MyException("Invalid index", ex);
+}
+catch(FileNotFoundException ex)
+{    
+    bool success = Log(ex);
+    if (!success)
+    {
+        // 기존 Exception을 throw
+        throw ex;
+    }
+}
+catch(Exception ex)
+{    
+    Log(ex);
+    // 발생된 Exception을 그대로 호출자에 전달
+    throw;
+}
+```
+```C#
+string connStr = "Data Source=(local);Integrated Security=true;";
+string sql = "SELECT COUNT(1) FROM sys.objects";
+SqlConnection conn = null; 
+try
+{
+    conn = new SqlConnection(connStr);
+    conn.Open();
+    SqlCommand cmd = new SqlCommand(sql, conn);
+    object count = cmd.ExecuteScalar();
+    Console.WriteLine(count);                
+}
+catch (SqlException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+//항상 실행되어 Close 메서드를 실행하여 Connection을 닫
+finally
+{
+    if (conn != null && 
+        conn.State == System.Data.ConnectionState.Open)
+    {
+        conn.Close();
+    }
+}
+```
+## C# 네임스페이스
+- 많은 클래스들을 충돌없이 보다 편리하게 관리 및 사용하기 위해 닷넷에서 네임스페이스를 사용
+- 클래스들이 대개 네임스페이스 안에서 정의
+```C#
+namespace MyNamespace
+{
+   class A
+   {
+   }
+   
+   class B
+   {
+   }
+}
+```
+- 네임 스페이스 참조 방식으로는 두가지 방식
+  1) 클래스 명 앞에 네임 스페이스 전부를 적는 경우 (ex_  System.Console.WriteLine();)
+  2) 프로그램 맨 윗단에 해당 using을 사용하여 C#에서 사용하고자 하는 네임스페이스를 설정하고 직접 클래스 사용 (ex_ using System; / Console.WriteLine();)
+### C# 구조체
+- C#에서 struct를 사용하면 Value Type을 만들고 class를 사용하면 Reference Type을 만든다.
+- 기본 데이터형들은 struct으로 구성되어 있음(ex_int, double,float, bool 등) -> Value Type
+- Class를 정의하여 만들며 상속이 가능, 복잡한 데이타나 행위를 정의하는 곳 -> Reference Type
+```C#
+// System.Int32 (Value Type)
+public struct Int32 
+{ 
+   //....
+}
+
+// System.String (Reference Type)
+public sealed class String 
+{
+   //....
+}
+```
+### struct 구조체
+- 구조체를 생성하고 Value Type을 정의하기 위해 사용
+- 경우에 따라 클래스보다 상대적으로 가벼운 오버헤드를 지닌 구조체기 필요할 수 있다.
+- **struct 구조체는 클래스와 같이 거의 비슷한 구조를 가지고 있지만 상속은 할 수 없다.**
+- 상속은 할 수 없어도 인터페이스는 구현 가능
+<img width="357" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/b5695da9-42db-437c-996d-704cc1d39514">
+```C#
+using System;
+
+namespace AccessModifier
+{
+    class WaterHeater
+    {
+        protected int temperature;
+
+        public void SetTemperature(int temperature)
+        {
+            // 온도 -5~42 예외처리
+            if (temperature < -5 || temperature > 42)
+            {
+                throw new Exception("Out of temperature range");
+            }
+
+            // 외부에서 접근할 수 없기 때문에 public 메서드를 통해 접근
+            this.temperature = temperature; 
+        }
+
+        internal void TurnOnWater()
+        {
+            Console.WriteLine("Turn on water: {0}", temperature);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                WaterHeater heater = new WaterHeater();
+                heater.SetTemperature(20);
+                heater.TurnOnWater();
+
+                heater.SetTemperature(-2);
+                heater.TurnOnWater();
+
+                heater.SetTemperature(50);
+                heater.TurnOnWater();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+
 
 
 ## System
