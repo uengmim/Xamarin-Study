@@ -604,6 +604,7 @@ public sealed class String
 - **struct 구조체는 클래스와 같이 거의 비슷한 구조를 가지고 있지만 상속은 할 수 없다.**
 - 상속은 할 수 없어도 인터페이스는 구현 가능
 <img width="357" alt="image" src="https://github.com/uengmim/Xamarin-Study/assets/72143238/b5695da9-42db-437c-996d-704cc1d39514">
+
 ```C#
 using System;
 
