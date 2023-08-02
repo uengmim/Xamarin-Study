@@ -655,8 +655,15 @@ namespace AccessModifier
     }
 }
 ```
+## C# class
+- Class는 Reference Type을 정의하는데 사용
+- 클래스는 메서드 (Method), 속성 (Property), 필드 (Field), 이벤트 (Event) 등을 멤버로 포함하는 소프트웨어 단위로서 보통 이 클래스 정의로부터 객체 (Object)를 생성해서 사용
+- 클래스를 정의할 때 중요한 멤버는 공용(public) 메서드와 속성인데, 이 public 멤버들은 외부 객체와의 상호작용을 위해 사용
 
-
+ 1) 메서드 : 클래스에서 실제 행동을 일으키는 코드 블럭. 대개 동사 or 동사 + 명사로 메서드 명을 정함 ex) Calculate(), DeleteData()
+ 2) 속성 : 클래스의 내부 데이터를 외부에서 사용할 수 있게 하거나 외분에서 클래스 내부의 데이터를 간단하게 설정할 때 사용
+ 3) 필드 : 클래스의 내부 데이터는 필드에 저장하며 필드들은 클래스 객체의 상태를 유지하는데 이용. 클래스는 동일하더라도 클래스로부터 생성된 여러 객체들은 다른 필드값을 가짐에 다라 서로 다른 객체 상태를 가짐
+ 4) 이벤트 : 이벤트는 객체 내부의 특정 상태나 어떤 일이 일어나는 이벤트를 외부로 전달하는데 사용
 
 
 ## System
@@ -694,5 +701,7 @@ namespace AccessModifier
 - DIM - Data interface Module, Data Provide에 대한 추상 계층 제공
 - RFCDIM - RFC Interface Module
 - imateRFCSERVER - RFC server
+
+
 
 IMATEDB2 만들기 (DPORA, DPSQL, DPSAP) ibm
