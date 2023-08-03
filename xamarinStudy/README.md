@@ -665,6 +665,114 @@ namespace AccessModifier
  3) 필드 : 클래스의 내부 데이터는 필드에 저장하며 필드들은 클래스 객체의 상태를 유지하는데 이용. 클래스는 동일하더라도 클래스로부터 생성된 여러 객체들은 다른 필드값을 가짐에 다라 서로 다른 객체 상태를 가짐
  4) 이벤트 : 이벤트는 객체 내부의 특정 상태나 어떤 일이 일어나는 이벤트를 외부로 전달하는데 사용
 
+```C#
+public class MyCustomer
+{
+    // 필드
+    private string name;
+    private int age;
+
+    // 이벤트 
+    public event EventHandler NameChanged;
+
+    // 생성자 (Constructor)
+    public MyCustomer()
+    {
+        name = string.Empty;
+        age = -1;
+    }
+
+    // 속성
+    public string Name
+    {
+        get { return this.name; }
+        set 
+        {
+            if (this.name != value)
+            {
+                this.name = value;
+                if (NameChanged != null)
+                {
+                    NameChanged(this, EventArgs.Empty);
+                }
+            }                
+        }
+    }
+    public int Age
+    {
+        get { return this.age; }
+        set { this.age = value; }
+    }
+
+    // 메서드
+    public string GetCustomerData()
+    {
+        string data = string.Format("Name: {0} (Age: {1})", 
+                    this.Name, this.Age);
+        return data;
+    }
+}
+```
+### Partial 클래스
+- 하나의 클래스를 2개 이상의 파일에 나누어 정의할 수 있는 기능
+- Windows Form을 만들면 자동으로 동일 클래스를 2개의 파일에 나누어 저장
+
+## Nullable 타입의 도입
+- C#에서 정수, 부동자릿수, 구조체 등의 Value Type은 NULL을 가질 수 없다.
+- ex) 정수 int i가 있으면 i에는 null 할당 X
+  1) 프로그램에서 사용될 거 같지 않은 특정 값을 추정하여 할당 ex) int i = int.MaxValue;
+  2) 또 하나의 변수를 두어 i가 missing임을 나타냄 ex) bool iHasValue = false;
+### Nullable의 사용
+- C#에서는 ValueType에도 null을 할당할 수 있는 Nullable타입을 지원
+- Value값을 가지고 있으면서 NULL 상태를 체크할수 있는 HasValue를 가지고 있는 struct
+- int?와 같이 Value Type 뒤에 물음표를 붙이면 해당 정수형 타입이 Nullable 정수형 타입을 의미. 즉 Null 할당 가
+```C#
+int? i = null;
+bool? b = null;
+int?[] a = new int?[100];
+```
+### Nullable<T> 타입
+- int?,bool? 와 같은 T?의 표현은 Nullable<T>와 같은 표현
+- Nullable<T>는 ㄱ밧을 가지고 있는지 체크하는 HasValue 속성과 실제 값을 나타내는 Value 속성을 가지고 있음
+- 레퍼런스 타입은 이미 NUll을 허용하기 때문에 Nullable 쓸 필요 X
+```C#
+double _Sum = 0;
+DateTime _Time;
+bool? _Selected;
+
+public void CheckInput(int? i, double? d, DateTime? time, bool? selected)
+{
+    if (i.HasValue && d.HasValue)
+        this._Sum = (double)i.Value + (double)d.Value;
+
+    // time값이 있는 체크.
+    if (!time.HasValue)
+        throw new ArgumentException();
+    else
+        this._Time = time.Value;
+
+    // 만약 selected가 NULL이면 false를 할당
+    this._Selected = selected ?? false;
+}
+```
+### Nullable 정적 클래스
+- 정적 클래스는 두개의 Nullable 객체를 비교(Compare(), Equals())하거나 특정 Nullable 타입이 어떤 Value 타입에 기반을 두고 있는지 알아내는(GetUnderingType()) 기능
+  (Compare()은 큰지 작은지 같은지를 비교하는 반면, Equals()는 같은지 아닌지만 비교)
+
+## C# 메서드
+- 클래스 내에서 코드블럭을 실행시키는 함수를 메서드라고 부름
+- 메서드는 하나의 리턴값을 가지며 리턴 값이 없을 경우 리턴 타입을 void로 표시
+- public이나 private 같은 접근 제한자를 리턴 타입 앞에 둘 수 있다.
+```C#
+public int GetData(int a, string b, bool c)
+{
+}
+```
+### Pass by Value
+- 메서드에 인수를 전달할 때 디폴트로 값을 복사해서 전달하는 Pass by Value 방식을 따름
+- 전달된 인수를 메서드 내에서 변경한다해도 메서드가 끝나고 함수가 리턴된 후 전달된 인수의 값은 호출자에서 원래 값 그대로 유지
+
+
 
 ## System
 ### System의 구성 요소
