@@ -772,7 +772,53 @@ public int GetData(int a, string b, bool c)
 - 메서드에 인수를 전달할 때 디폴트로 값을 복사해서 전달하는 Pass by Value 방식을 따름
 - 전달된 인수를 메서드 내에서 변경한다해도 메서드가 끝나고 함수가 리턴된 후 전달된 인수의 값은 호출자에서 원래 값 그대로 유지
 
+```C#
+class Program
+{
+    private void Calculate(int a)
+    {
+        a *= 2;
+    }
 
+    static void Main(string[] args)
+    {
+        Program p = new Program();
+
+        int val = 100;
+        p.Calculate(val);  
+        // val는 그대로 100        
+    }
+}
+```
+### Pass by Reference
+- 메서드에 파라미터를 전달할 때 레퍼런스(참조)로 전달하고자 한다면 C#키워드 ref를 사용
+- ref를 사용할 경우 메서드 내에서 변경된 값은 리턴 후에도 유효 (사전에 초기화해야함)
+- out을  사용하는 파라미터 
+```C#
+// ref 정의
+static double GetData(ref int a, ref double b)
+{ return ++a * ++b; }
+
+// out 정의
+static bool GetData(int a, int b, out int c, out int d)
+{
+    c = a + b;
+    d = a - b;
+    return true;
+}
+
+static void Main(string[] args)
+{
+    // ref 사용. 초기화 필요.
+    int x = 1;
+    double y = 1.0;
+    double ret = GetData(ref x, ref y);
+
+    // out 사용. 초기화 불필요.
+    int c, d;
+    bool bret = GetData(10, 20, out c, out d);
+}
+```
 
 ## System
 ### System의 구성 요소
