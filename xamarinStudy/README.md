@@ -819,7 +819,41 @@ static void Main(string[] args)
     bool bret = GetData(10, 20, out c, out d);
 }
 ```
+### Named 파라미터
+- 일반적으로 파라미터 위치에 따라 순차적으로 파라미터가 넘겨지는데 위치와 상관없이 파라미터 명을 지정하여 파라미터 전달
 
+### Optional 파리미터
+- 어떤 메서드의 파라미터가 디폴트 값을 갖고 있으면 메서드 호출시 파라미터 생략 가능
+- Optional 파라미터는 반드시 마지막에 놓여져야 함
+```C#
+class Program
+{
+    // Optional 파라미터: calcType
+    int Calc(int a, int b, string calcType = "+")
+    {
+        switch (calcType)
+        {
+            case "+":
+                return a + b;
+            case "-":
+                return a - b;
+            case "*":
+                return a * b;
+            case "/":
+                return a / b;
+            default:
+                throw new ArithmeticException();
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Program p = new Program();
+        int ret = p.Calc(1, 2);
+        ret = p.Calc(1, 2, "*");
+    }
+}
+```
 ## System
 ### System의 구성 요소
 - System : 여러 프로그램이 결합하여 지정된 역할을 수행하는 체계
