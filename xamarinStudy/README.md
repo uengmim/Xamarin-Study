@@ -854,6 +854,74 @@ class Program
     }
 }
 ```
+### params
+- 일반적으로 메서드의 파라미터 갯수는 고정되어 있음. 하지만 어떤 경우는 파라미터의 갯수를 미리 알 수 없는 경우도 있는데 이런 경우에는 C# 키워드 params를 사용
+- params 키워드는 가변적인 배열을 인수로 갖게 해주는데 파리미터들 중 반드시 하나만 존재해야 하며 맨 마지막에 위치
+```C#
+//메서드
+ int Calc(params int[] values)
+
+//사용
+int s = Calc(1,2,3,4);
+s = Calc(6,7,8,9,10,11);
+```
+## 이벤트
+- 이벤트는 클래스 내에서 특정한 일이 일어났음을 외부의 이벤트 가입자들에게 알려주는 기능
+- C#에서 이벤트는 event라는 키워드를 사용하여 표시, 클래스 내에서 일종의 필드처럼 정의
+- 이벤트에 가입하기 위해서는 += 연산자를 사용하여 이벤트 핸들러를 이벤트에 추가한다.
+- 반대로 삭제하기 위햏서는 -= 연산자를 사용
+- 하나의 이벤트에 여러 개 이벤트 핸들러들을 추가할 수 있는데 이벤트가 발생되면 추가된 이벤트 핸들러들을 모두 차례로 호출한다
+```C#
+// 클래스 내의 이벤트 정의
+class MyButton
+{
+   public string Text;
+   // 이벤트 정의
+   public event EventHandler Click; //외부에서 엑세스 할 수 있게 public 필
+
+   public void MouseButtonDown() 
+   {
+      if (this.Click != null) //이벤트를 외부로 보내기 전에 이벤트에 가입한 가입자가 있는지 체크
+      {
+         // 이벤트핸들러들을 호출
+         Click(this, EventArgs.Empty);
+      }
+   }
+}
+
+// 이벤트 사용
+public void Run()
+{
+   MyButton btn = new MyButton();
+   // Click 이벤트에 대한 이벤트핸들러로
+   // btn_Click 이라는 메서드를 지정함
+   btn.Click += new EventHandler(btn_Click);
+   btn.Text = "Run";
+   //....
+}
+
+void btn_Click(object sender, EventArgs e)
+{
+   MessageBox.Show("Button 클릭");
+}
+```
+### add & remove
+- C# 클래스에서 get set을 사용하듯이 event에서는 add, remove를 사용 할 수 있음
+- 아래 예제에서 add는 += , remove는 -= 사용
+- 여러개 의 델리게이트를 가지고 순서대로 호출하는 것을 멀티캐스트 델리게이트
+## 전처리기
+- 실제 컴파일이 시작되기 전에 컴파일러에게 특별한 명령을 미리 처리하도록 지시
+- 모든 C# 전처리기 지시어는 #으로 시작되며 한 라인에 한 개의 전처리기 명령만을 사용 (끝에 세미콜론을 붙이지 않음)
+- 전처리기 지시어는 해당 파일 안에서만 효력 발생
+- 하나의 클래스가 두개의 파일에 나뉘어 Partial Class로 저장되었을 때 두 개의 파일에서 동일한 심벌을 사용하고 싶다면 두 개의 파일에 각각 심벌 정의
+### 조건별 컴파일
+- 전처리기에서 자주 사용되는 것으로 #define과 #if, #else, #endif 등이 있음
+- #define은 전처리 지시어 중 하나인데 이를 사용하면 코드 내에서 상수나 맨크로를 정의할 수 있음
+- 이렇게 정의된 심벌은 다른 전처리기 지시어에서 사용되는데  예를 들어 #if(DEBug)와 같이 if 지시어에서 사용될 수 있다.
+- 흔히 #define과 #if를 결합하여 조건별로 서로 다른 코드블럭을 컴파일
+
+
+  
 ## System
 ### System의 구성 요소
 - System : 여러 프로그램이 결합하여 지정된 역할을 수행하는 체계
